@@ -8,10 +8,20 @@
     <script src="Geplant.js"></script>
     <title>OJDANL</title>
     <style>
-        ul {
-            margin-top: 90px;
-            list-style-type: none;
-            padding: 0;
+        @media (max-width: 768px) {
+            ul {
+                margin-top: 0px;
+                list-style-type: none;
+                padding: 0;
+            }
+        }
+
+        @media (min-width: 768px) {
+            ul {
+                margin-top: 90px;
+                list-style-type: none;
+                padding: 0;
+            }
         }
 
         li {
@@ -53,7 +63,7 @@
 </head>
 
 <body>
-    <div class="NavBar">
+    <div class="NavBar desktop">
         <a href="index.html">Home</a>
         <a href="ToDo.html">ToDo</a>
         <a href="Ereignisse.html">Timeline</a>
@@ -62,9 +72,27 @@
         <a id="countdown"></a>
     </div>
 
+    <div class="mobile">
+        <div id="mobile-header">
+            <button class="hamburger-menu" onclick="toggleMenu()">☰</button>
+            <a id="mobile-countdown"></a>
+        </div>
+        <div class="NavBar" id="mobile-menu">
+            <button onclick="toggleMenu()" class="close-btn">×</button>
+            <a href="index.html">Home</a>
+            <a href="ToDo.html">ToDo</a>
+            <a href="Ereignisse.html">Timeline</a>
+            <a class="active" href="Geplant.html">Geplant</a>
+            <a href="WichtigeDaten.html">Wichtige Daten</a>
+        </div>
+    </div>
+
     <ul id="todoListe"></ul>
 
     <script>
+        function toggleMenu() {
+            document.getElementById('mobile-menu').classList.toggle('open');
+        }
         const liste = document.getElementById('todoListe');
         liste.innerHTML = "";
 
@@ -86,8 +114,8 @@
             liste.appendChild(li);
         });
     </script>
-     <script src="Events.js"></script>
-     <script src="CountdownNavBar.js"></script>
+    <script src="Events.js"></script>
+    <script src="CountdownNavBar.js"></script>
 </body>
 
 </html>

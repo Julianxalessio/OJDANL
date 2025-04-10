@@ -1,5 +1,6 @@
 function getNextEvent() {
     const currentDate = new Date();
+    const countdownElement = window.innerWidth <= 768 ? document.getElementById('mobile-countdown') : document.getElementById('desktop-countdown');
 
 
     // Filtere alle Ereignisse, die in der Zukunft liegen
@@ -20,13 +21,14 @@ function getNextEvent() {
 // Funktion, die den Countdown berechnet und in der Navbar anzeigt
 function updateCountdown() {
     const nextEvent = getNextEvent();
+    const countdownElement = window.innerWidth <= 768 ? document.getElementById('mobile-countdown') : document.getElementById('countdown');
 
     if (nextEvent) {
         const targetDate = new Date(nextEvent.datum);
         const timeDifference = targetDate - new Date();
 
         if (timeDifference <= 0) {
-            document.getElementById('countdown').textContent = "Das nächste Ereignis ist heute!";
+            countdownElement.textContent = "Das nächste Ereignis ist heute!";
             return;
         }
 
@@ -35,9 +37,9 @@ function updateCountdown() {
         const hours = Math.floor((timeDifference % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
         const minutes = Math.floor((timeDifference % (1000 * 60 * 60)) / (1000 * 60));
 
-        document.getElementById('countdown').textContent = `${days} Tage, ${hours} Stunden, ${minutes} Minuten bis zum ${nextEvent.ereignis}`;
+        countdownElement.textContent = `${days} Tage, ${hours} Stunden, ${minutes} Minuten bis zum ${nextEvent.ereignis}`;
     } else {
-        document.getElementById('countdown').textContent = "Keine zukünftigen Ereignisse.";
+        countdownElement.textContent = "Keine zukünftigen Ereignisse.";
     }
 }
 

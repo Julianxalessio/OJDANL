@@ -1,39 +1,57 @@
 body {
     background-color: #f78484;
     font-family: Arial, sans-serif;
-
+    padding: 10px;
 }
 
+#mobile-header{
+    display: flex;              /* Flexbox aktiviert */
+    align-items: center;        /* Beide Elemente auf gleicher Höhe ausrichten */
+    justify-content: space-between; /* Stellt sicher, dass die Elemente am Anfang und Ende der Navbar sind */
+    padding-bottom: 10px;
+}
 
 .NavBar {
-    position: fixed; /* Navbar fixiert */
+    position: fixed;
+    /* Navbar fixiert */
     top: 0;
     left: 0;
     width: 100%;
-    background-color: #f77c7c; /* Beibehalten der rosa Navbar-Farbe */
+    background-color: #f77c7c;
+    /* Beibehalten der rosa Navbar-Farbe */
     z-index: 1000;
     padding-left: 20px;
-    padding-top: 14px; /* Etwas mehr Abstand oben */
-    padding-bottom: 14px; /* Mehr Platz für die Navigation */
-    display: flex; /* Flexbox für einfachere Anordnung */
-    justify-content: flex-start; /* Links ausgerichtet */
+    padding-top: 14px;
+    /* Etwas mehr Abstand oben */
+    padding-bottom: 14px;
+    /* Mehr Platz für die Navigation */
+    display: flex;
+    /* Flexbox für einfachere Anordnung */
+    justify-content: flex-start;
+    /* Links ausgerichtet */
 }
 
 .NavBar a {
     margin-right: 10px;
     color: #ffffff;
     text-align: center;
-    padding: 12px 16px; /* Weniger Padding für bessere Übersicht */
+    padding: 12px 16px;
+    /* Weniger Padding für bessere Übersicht */
     text-decoration: none;
-    font-size: 18px; /* Etwas kleinere Schrift */
-    background-color: #f1c6c6; /* Weicheres Rosa für die Links */
+    font-size: 18px;
+    /* Etwas kleinere Schrift */
+    background-color: #f1c6c6;
+    /* Weicheres Rosa für die Links */
     border-radius: 5px;
-    transition: background-color 0.3s ease, color 0.3s ease; /* Sanfte Übergänge */
+    transition: background-color 0.3s ease, color 0.3s ease;
+    /* Sanfte Übergänge */
 }
 
 .NavBar a:hover {
-    background-color: #ffffff; /* Hellerer Hintergrund bei Hover */
-    color: #f77c7c; /* Passende Farbe für den Hover-Effekt */
+    background-color: #ffffff;
+    /* Hellerer Hintergrund bei Hover */
+    color: #f77c7c;
+    /* Passende Farbe für den Hover-Effekt */
 }
 
 .NavBar a.active {
@@ -45,4 +63,94 @@ body {
     font-size: 20px;
     font-weight: bold;
     color: #ff4d4d;
+    padding: 8px 12px;
+    border-radius: 5px;
+    margin-left: auto; /* Für Desktop: Countdown ans rechte Ende */
+}
+
+#mobile-menu {
+    display: none;
+}
+
+#mobile-menu.open {
+    display: block;
+    z-index: 900;
+    height: 100%;
+}
+
+#mobile-menu.open a {
+    display: block;
+    /* Ändert die <a> von Inline-Elementen auf Block-Level */
+    width: 100%;
+    /* Damit die Links den gesamten verfügbaren Platz einnehmen */
+    margin-bottom: 20px;
+    /* Abstand zwischen den Links */
+    padding: 10px;
+    text-decoration: none;
+    border-radius: 5px;
+    /* Optional: Abgerundete Ecken für die Links */
+    width: 80%;
+}
+
+.close-btn {
+    background-color: transparent;
+    /* Hintergrund transparent */
+    border: none;
+    /* Kein Rahmen */
+    font-size: 30px;
+    /* Schriftgröße des X */
+    color: black;
+    /* Schwarze Farbe für das X */
+    cursor: pointer;
+    /* Zeigt an, dass der Button klickbar ist */
+    padding: 10px;
+    /* Etwas Innenabstand */
+    display: inline-flex;
+    /* Stellt sicher, dass es gut in den Layout passt */
+    align-items: center;
+    /* Zentriert das X im Button */
+    justify-content: center;
+    /* Zentriert das X im Button */
+}
+
+.close-btn:hover {
+    color: red;
+    /* Optional: Farbe ändern bei Hover */
+}
+
+.hamburger-menu {
+    font-size: 30px;
+    margin-bottom: 10px;
+}
+
+.desktop {
+    display: block;
+}
+
+.mobile {
+    display: none;
+}
+
+@media (max-width: 768px) {
+    .desktop {
+        display: none;
+    }
+
+    .mobile {
+        display: block;
+    }
+}
+
+.mobile #mobile-countdown {
+    font-size: 20px;
+    display: block;
+    text-align: center;
+    margin: 0px auto;
+    color: #000000; /* Dunkler für hellen Hintergrund */
+    background-color: rgba(255, 255, 255, 0.7);
+    padding: 10px;
+    height: 3%;
+    overflow: hidden;
+    margin-left: 10px;
+    border-radius: 20px;
 }

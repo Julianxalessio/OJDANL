@@ -11,13 +11,22 @@
     <style>
         body {
             font-family: Arial, sans-serif;
-            padding: 20px;
         }
 
-        .timeline-container {
-            width: 80%;
-            margin: 0 auto;
-            margin-top: 60px;
+        @media (max-width: 768px) {
+            .timeline-container {
+                margin-top: 0px;
+                width: 80%;
+                margin: 0 auto;
+            }
+        }
+
+        @media (min-width: 768px) {
+            .timeline-container {
+                width: 80%;
+                margin: 0 auto;
+                margin-top: 60px;
+            }
         }
 
         h2 {
@@ -60,7 +69,7 @@
 </head>
 
 <body>
-    <div class="NavBar">
+    <div class="NavBar desktop">
         <a href="index.html">Home</a>
         <a href="ToDo.html">ToDo</a>
         <a class="active" href="Ereignisse.html">Timeline</a>
@@ -69,10 +78,28 @@
         <a id="countdown"></a>
     </div>
 
+    <div class="mobile">
+        <div id="mobile-header">
+            <button class="hamburger-menu" onclick="toggleMenu()">☰</button>
+            <a id="mobile-countdown"></a>
+        </div>
+        <div class="NavBar" id="mobile-menu">
+            <button onclick="toggleMenu()" class="close-btn">×</button>
+            <a href="index.html">Home</a>
+            <a href="ToDo.html">ToDo</a>
+            <a class="active" href="Ereignisse.html">Timeline</a>
+            <a href="Geplant.html">Geplant</a>
+            <a href="WichtigeDaten.html">Wichtige Daten</a>
+        </div>
+    </div>
+
     <div class="timeline-container">
         <ul id="timeline"></ul>
     </div>
     <script>
+        function toggleMenu() {
+            document.getElementById('mobile-menu').classList.toggle('open');
+        }
         const timeline = document.getElementById('timeline');
 
         // Ereignisse aus der "Datenbank" holen und nach dem neuesten Ereignis sortieren
@@ -104,8 +131,8 @@
             timeline.appendChild(listItem);
         });
     </script>
-     <script src="Events.js"></script>
-     <script src="CountdownNavBar.js"></script>
+    <script src="Events.js"></script>
+    <script src="CountdownNavBar.js"></script>
 </body>
 
 </html>

@@ -1,0 +1,129 @@
+body {
+    font-family: sans-serif;
+    padding: 10px;
+    color: #f2f2f2;
+}
+
+@media (min-width: 768px) {
+    #Zeitspanne {
+        width: 500px;
+        height: 280px;
+        top: 43%;
+    }
+
+    #TopToDoContainer {
+        width: 500px;
+        height: 280px;
+        top: 8%;
+    }
+
+    #Foto {
+        width: auto;
+        height: 65%;
+        top: 8%;
+        left: 30%;
+    }
+
+    #Foto img {
+        width: auto;
+        height: 100%;
+    }
+
+    #NeusteTimeline {
+        width: 600px;
+        height: 280px;
+        top: 8%;
+        left: 65%;
+    }
+
+    #GeplantContainer {
+        width: 600px;
+        height: 280px;
+        top: 43%;
+        left: 65%;
+    }
+
+    .Containers {
+        font-family: Arial, Helvetica;
+        background-color: rgb(255, 79, 79);
+        border-radius: 5%;
+        position: fixed;
+        padding: 8px;
+        font-size: 25px;
+    }
+}
+
+@media (max-width: 768px) {
+    #Container {
+        display: flex;
+        /* Aktiviert Flexbox */
+        flex-direction: column;
+        /* Stellt sicher, dass die Elemente vertikal (von oben nach unten) angeordnet sind */
+        justify-content: flex-start;
+        /* Richtet die Elemente am Anfang aus */
+        align-items: flex-start;
+        gap: 10px;
+    }
+
+    #Zeitspanne {
+        width: 95%;
+        height: auto;
+        font-size: 20px;
+    }
+
+    #TopToDoContainer {
+        width: 95%;
+        height: auto;
+        font-size: 20px;
+    }
+
+    #Foto {
+        width: 95%;
+        height: auto;
+    }
+
+    #Foto img {
+        width: auto;
+        height: 50%;
+    }
+
+    #NeusteTimeline {
+        width: 95%;
+        height: auto;
+        
+    }
+    #NeusteTimeline li, #NeusteTimeline ul{
+        text-align: left;
+        padding: 5px 10px;
+    }
+
+    #GeplantContainer {
+        width: 95%;
+        height: auto;
+
+    }
+
+    .event-date {
+        flex: 0 0 80px;
+    }
+
+    .event-description {
+        flex: 1;
+        text-align: center;
+        padding: 0 10px;
+        word-break: break-word;
+    }
+
+    .event-category {
+        flex: 0 0 80px;
+        text-align: right;
+    }
+
+    .Containers {
+        font-family: Arial, Helvetica;
+        background-color: rgb(255, 79, 79);
+        border-radius: 5%;
+        padding: 8px;
+    }
+
+}
