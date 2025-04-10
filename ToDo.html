@@ -34,7 +34,7 @@
     </form>
 
     <script>
-        const repo = "Julianxalessio/OJDANL"; 
+        const repo = "Julianxalessio/OJDANL";
         const filePath = "ToDo.json";
         const token = "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"; // Nur privat verwenden!
         const branch = "main";
@@ -61,7 +61,16 @@
 
                 const fileData = await res.json();
                 const decoded = atob(fileData.content);
-                const json = JSON.parse(decoded);
+                let json = [];
+                if (fileData.content) {
+                    try {
+                        const decoded = atob(fileData.content);
+                        json = JSON.parse(decoded);
+                    } catch (e) {
+                        console.warn("Konnte Datei nicht parsen, initialisiere mit leerem Array.");
+                    }
+                }
+
 
                 // Neues Ereignis anhängen
                 json.push({
