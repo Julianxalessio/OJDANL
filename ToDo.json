@@ -2,5 +2,10 @@
   {
     "datum": "2025-04-09",
     "ereignis": "Hallo"
+  },
+  {
+    "datum": "2025-04-02",
+    "ereignis": "Hallo",
+    "abgehakt": false
   }
 ]
