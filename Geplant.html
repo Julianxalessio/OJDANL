@@ -1,11 +1,57 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="stylesheet" href="NavBar.css">
+    <script src="Geplant.js"></script>
     <title>OJDANL</title>
+    <style>
+        ul {
+            margin-top: 90px;
+            list-style-type: none;
+            padding: 0;
+        }
+
+        li {
+            width: 90%;
+            margin-bottom: 10px;
+            padding: 10px;
+            background-color: #fff;
+            border-radius: 5px;
+            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+            font-size: 20px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            transition: background-color 0.3s ease, box-shadow 0.3s ease;
+        }
+
+        li:hover {
+            background-color: #f4f4f4;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+        }
+
+        .event-item {
+            display: flex;
+            justify-content: space-between;
+            width: 100%;
+        }
+
+        .event-description {
+            font-weight: bold;
+            color: #333;
+        }
+
+        .event-date {
+            color: #888;
+            font-style: italic;
+            font-size: 20px;
+        }
+    </style>
 </head>
+
 <body>
     <div class="NavBar">
         <a href="index.html">Home</a>
@@ -13,6 +59,35 @@
         <a href="Ereignisse.html">Timeline</a>
         <a class="active" href="Geplant.html">Geplant</a>
         <a href="WichtigeDaten.html">Wichtige Daten</a>
+        <a id="countdown"></a>
     </div>
+
+    <ul id="todoListe"></ul>
+
+    <script>
+        const liste = document.getElementById('todoListe');
+        liste.innerHTML = "";
+
+        Geplant.forEach(item => {
+            const li = document.createElement('li');
+            const eventItem = document.createElement('div');
+            eventItem.classList.add('event-item');
+
+            const eventDescription = document.createElement('span');
+            eventDescription.textContent = item.Ereignis;
+
+            const eventDate = document.createElement('span');
+            eventDate.textContent = new Date(item.datum).toLocaleDateString();
+            eventDate.classList.add('event-date');
+
+            eventItem.appendChild(eventDescription);
+            eventItem.appendChild(eventDate);
+            li.appendChild(eventItem);
+            liste.appendChild(li);
+        });
+    </script>
+     <script src="Events.js"></script>
+     <script src="CountdownNavBar.js"></script>
 </body>
+
 </html>

@@ -1,18 +1,141 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="de">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="stylesheet" href="NavBar.css">
+    <script src="Events.js"></script>
     <title>OJDANL</title>
+    <style>
+        body {
+            font-family: sans-serif;
+            padding: 40px;
+        }
+
+        h1,
+        h2 {
+            text-align: center;
+            font-size: 28px;
+            color: #ff4d4d;
+        }
+
+        #eventsList {
+            margin-top: 50px;
+            max-width: 800px;
+            margin-left: auto;
+            margin-right: auto;
+        }
+
+        .event-item {
+            background-color: #ffffff;
+            border-radius: 8px;
+            box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.1);
+            margin-bottom: 20px;
+            padding: 20px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            transition: all 0.3s ease;
+        }
+
+        .event-item:hover {
+            background-color: #f7c1c1;
+        }
+
+        .event-name {
+            font-size: 22px;
+            font-weight: bold;
+            color: #ff4d4d;
+        }
+
+        .countdown-timer {
+            font-size: 18px;
+            color: #ff2b2b;
+            font-weight: bold;
+        }
+
+        .event-item span {
+            font-size: 18px;
+            color: #333;
+        }
+
+        .event-item p {
+            margin: 0;
+            font-size: 16px;
+            color: #666;
+        }
+
+        .footer {
+            text-align: center;
+            margin-top: 50px;
+            font-size: 16px;
+            color: #999;
+        }
+    </style>
 </head>
+
 <body>
     <div class="NavBar">
-        <a class="active" href="index.html">Home</a>
+        <a href="index.html">Home</a>
         <a href="ToDo.html">ToDo</a>
         <a href="Ereignisse.html">Timeline</a>
         <a href="Geplant.html">Geplant</a>
-        <a href="WichtigeDaten.html">Wichtige Daten</a>
+        <a class="active" href="WichtigeDaten.html">Wichtige Daten</a>
+        <a id="countdown"></a>
     </div>
+
+    <div id="eventsList">
+        <h2>Alle kommenden Ereignisse</h2>
+        <ul id="events">
+            <!-- Hier werden die Ereignisse dynamisch eingefügt -->
+        </ul>
+    </div>
+
+    <script>
+        const eventsListContainer = document.getElementById('events');
+
+        // Filter: Nur zukünftige Ereignisse anzeigen
+        const futureEvents = events.filter(event => new Date(event.datum) > new Date());
+
+        // Sortiere nach dem nächsten Ereignis
+        futureEvents.sort((a, b) => new Date(a.datum) - new Date(b.datum));
+
+        // Zeige jedes zukünftige Ereignis an
+        futureEvents.forEach(event => {
+            const li = document.createElement('li');
+            li.classList.add('event-item');
+
+            const eventName = document.createElement('span');
+            eventName.textContent = event.ereignis;
+
+            const countdownTimer = document.createElement('span');
+            countdownTimer.classList.add('countdown-timer');
+
+            li.appendChild(eventName);
+            li.appendChild(countdownTimer);
+            eventsListContainer.appendChild(li);
+
+            function updateCountdown() {
+                const eventDate = new Date(event.datum); // Erstelle ein Date-Objekt aus dem Datum
+                const timeDifference = eventDate - new Date();
+
+                if (timeDifference <= 0) {
+                    countdownTimer.textContent = `${event.ereignis} ist jetzt!`;
+                } else {
+                    const days = Math.floor(timeDifference / (1000 * 60 * 60 * 24));
+                    const hours = Math.floor((timeDifference % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
+                    const minutes = Math.floor((timeDifference % (1000 * 60 * 60)) / (1000 * 60));
+
+                    countdownTimer.textContent = `${days} Tage, ${hours} Stunden, ${minutes} Minuten`;
+                }
+            }
+
+            // Countdown alle 1000ms (1 Sekunde) aktualisieren
+            setInterval(updateCountdown, 1000);
+        });
+    </script>
+    <script src="CountdownNavBar.js"></script>
 </body>
+
 </html>

@@ -1,11 +1,72 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="stylesheet" href="NavBar.css">
+    <script src="Timeline.js"></script>
+    <script src="ToDo.js"></script>
+    <script src="Geplant.js"></script>
+
+
+    <style>
+        body {
+            font-family: sans-serif;
+            padding: 20px;
+            color: #f2f2f2;
+        }
+
+        #Zeitspanne {
+            width: 500px;
+            height: 280px;
+            top: 43%;
+        }
+
+        #TopToDoContainer {
+            width: 500px;
+            height: 280px;
+            top: 8%;
+        }
+
+        #Foto {
+            width: auto;
+            height: 65%;
+            top: 8%;
+            left: 30%;
+        }
+
+        #Foto img {
+            width: auto;
+            height: 100%;
+        }
+
+        #NeusteTimeline {
+            width: 600px;
+            height: 280px;
+            top: 8%;
+            left: 65%;
+        }
+
+        #GeplantContainer {
+            width: 600px;
+            height: 280px;
+            top: 43%;
+            left: 65%;
+        }
+
+        .Containers {
+            font-family: Arial, Helvetica;
+            background-color: rgb(255, 79, 79);
+            border-radius: 5%;
+            position: fixed;
+            padding: 8px;
+            font-size: 25px;
+        }
+    </style>
     <title>OJDANL</title>
 </head>
+
 <body>
     <div class="NavBar">
         <a class="active" href="index.html">Home</a>
@@ -13,6 +74,126 @@
         <a href="Ereignisse.html">Timeline</a>
         <a href="Geplant.html">Geplant</a>
         <a href="WichtigeDaten.html">Wichtige Daten</a>
+        <a id="countdown"></a>
     </div>
+
+    <div class="Containers" id="Zeitspanne">
+        <h4>Zeit seit dem ersten Date:</h4>
+        <h4 id="Tage"></h4>
+        <h4 id="Monate"></h4>
+        <h4 id="Jahre"></h4>
+    </div>
+
+    <div class="Containers" id="TopToDoContainer">
+        <h3>Neuste ToDo</h3>
+        <ul id="TopToDo"></ul>
+    </div>
+
+    <div class="Containers" id="NeusteTimeline">
+        <h3>Neuste Timeline</h3>
+        <ul id="TopTime"></ul>
+    </div>
+
+    <div class="Containers" id="Foto">
+        <img src="JAL.png" alt="OJDANL">
+    </div>
+
+    <div class="Containers" id="GeplantContainer">
+        <h3>Geplant</h3>
+        <ul id="TopGeplant"></ul>
+    </div>
+
+    <script>
+        // ============================= Time ============================
+
+        startDatum = new Date("2025-04-03");
+
+        const heute = new Date();
+
+        // 🧮 Berechnung der Tage
+        const diffMs = heute - startDatum; // Differenz in Millisekunden
+        const tage = Math.floor(diffMs / (1000 * 60 * 60 * 24)); // Tage
+
+        // Berechnung von Monaten und Jahren unter Berücksichtigung des Kalenders
+        let monate = heute.getMonth() - startDatum.getMonth() + (12 * (heute.getFullYear() - startDatum.getFullYear()));
+        if (heute.getDate() < startDatum.getDate()) {
+            monate--; // Wenn der aktuelle Tag vor dem Startdatum im Monat liegt
+        }
+
+        // Berechnung der Jahre
+        let jahre = Math.floor(monate / 12);
+        monate = monate % 12; // Übrige Monate nach dem Jahr
+
+        document.getElementById("Tage").textContent = `Tage: ${tage}`;
+        document.getElementById("Monate").textContent = `Monate: ${monate}`;
+        document.getElementById("Jahre").textContent = `Jahre: ${jahre}`;
+
+        // ============================= NewestToDo ============================
+        const lastTodos = ToDo.slice(-5);
+        lastTodos.forEach(item => {
+            const li = document.createElement('li');
+
+            li.textContent = item.aufgabe;
+
+            document.getElementById("TopToDo").appendChild(li);
+        })
+
+        // ============================= NewestTimeline ============================
+        // Ereignisse aus der "Datenbank" holen
+        const newestEventsContainer = document.getElementById('TopTime');
+
+        // Ereignisse nach Datum sortieren (neueste oben)
+        const sortedEvents = timelineData.sort((a, b) => new Date(b.datum) - new Date(a.datum));
+
+        // Nur die drei neuesten Ereignisse auswählen
+        const latestThreeEvents = sortedEvents.slice(0, 3);
+
+        // Ereignisse in den Container einfügen
+        latestThreeEvents.forEach(event => {
+            const eventItem = document.createElement('div');
+            eventItem.style.display = "flex";
+            eventItem.style.justifyContent = "space-between";
+            eventItem.style.marginBottom = "10px";
+            eventItem.style.padding = "10px";
+            eventItem.style.paddingLeft = "0px";
+            eventItem.style.borderRadius = "5px";
+            eventItem.style.boxShadow = "0 2px 4px rgba(0, 0, 0, 0.1)";
+
+            const eventDate = document.createElement('span');
+            eventDate.textContent = new Date(event.datum).toLocaleDateString();
+
+            const eventDescription = document.createElement('span');
+            eventDescription.textContent = event.ereignis;
+
+            const eventCategory = document.createElement('span');
+            eventCategory.textContent = `(${event.kategorie})`;
+
+            eventItem.appendChild(eventDate);
+            eventItem.appendChild(eventDescription);
+            eventItem.appendChild(eventCategory);
+
+            newestEventsContainer.appendChild(eventItem);
+        });
+
+
+        const topGeplanteAufgaben = Geplant.slice(0, 3);
+
+        const geplanteContainer = document.getElementById('TopGeplant');
+
+        topGeplanteAufgaben.forEach(task => {
+            const li = document.createElement('li');
+
+            // Datum formatieren (z.B. "10.04.2025")
+            const formattedDate = new Date(task.datum).toLocaleDateString('de-DE');
+
+            // Ereignis und Datum in das li-Element einfügen
+            li.textContent = `${task.Ereignis} - ${formattedDate}`;
+
+            geplanteContainer.appendChild(li);
+        });
+    </script>
+    <script src="Events.js"></script>
+    <script src="CountdownNavBar.js"></script>
 </body>
+
 </html>
