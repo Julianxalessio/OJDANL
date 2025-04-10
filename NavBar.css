@@ -1,0 +1,36 @@
+body{
+    background-color: #f78484;
+
+}
+
+.NavBar{
+    position: fixed; /* Navbar fixiert */
+    top: 0;
+    left: 0;
+    width: 100%;
+    overflow: hidden;
+    background-color: #f77c7c;
+    z-index: 1000;
+}
+.NavBar a {
+    margin-right: 5px;
+    float: left;
+    color: #f2f2f2;
+    text-align: center;
+    padding: 14px 16px;
+    text-decoration: none;
+    font-size: 20px;
+    width: 150px;
+    background-color: pink;
+    border-radius: 5px;
+}
+
+.NavBar a:hover {
+    background-color: #ffffff;
+    color: pink;
+}
+
+.NavBar a.active {
+    background-color: #ffffff;
+    color: rgb(238, 72, 72);
+}
